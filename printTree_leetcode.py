@@ -1,4 +1,5 @@
 import math
+
 class Solution:
     def createEmptyMat(self, root):
         mat = []
