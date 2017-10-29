@@ -22,6 +22,7 @@ class Solution:
         return mat
 
     def printNode(self, mat, node, i, l, r):
+        print("test")
         if (node == None):
             return
         nodeLoc = int(math.ceil((l + r) / 2.0))
