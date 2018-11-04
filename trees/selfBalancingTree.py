@@ -1,4 +1,4 @@
-from printTree_leetcode import Solution
+from trees.printTree_leetcode import Solution
 
 
 def insert(node, val):
