@@ -103,7 +103,58 @@ class LLUtils(object):
 
         return self.visited[head]
 
-        
+    def interleave(self, head):
+        curr = head
+        while curr:
+            temp = curr.next.next
+            curr.next = LLNode(curr.val)
+            curr.next.next = temp
+            curr = temp
+        curr = head
+        while curr:
+            org_random = curr.random
+            if org_random:
+                copy = curr.next
+                copy.random = org_random.next
+            else:
+                curr = curr.next.next
+        copy_head = curr.next
+        while curr:
+            copy = curr.next
+            curr.next = copy.next
+            copy.next = copy.next.next
+            curr = curr.next
+        return copy_head
+
+    def interleaveLC(self, head):
+        if not head:
+            return head
+
+        ptr = head
+        while ptr:
+            new_node = LLNode(ptr.val)
+            new_node.next = ptr.next
+            ptr.next = new_node
+            ptr = new_node.next
+
+        ptr = head
+
+        while ptr:
+            ptr.next.random = ptr.random.next if ptr.random else None
+            ptr = ptr.next.next
+
+        ptr_old_list = head
+        ptr_new_list = head.next
+        head_old = head.next
+        while ptr_old_list:
+            ptr_old_list.next = ptr_old_list.next.next
+            ptr_new_list.next = ptr_new_list.next.next if ptr_new_list.next else None
+            ptr_old_list = ptr_old_list.next
+            ptr_new_list = ptr_new_list.next
+
+        return head_old
+
+    
 class LLNode(object):
     def __init__(self, val, next=None, random=None):
         self.val = val
