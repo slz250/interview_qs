@@ -154,7 +154,7 @@ class LLUtils(object):
 
         return head_old
 
-    
+
 class LLNode(object):
     def __init__(self, val, next=None, random=None):
         self.val = val
