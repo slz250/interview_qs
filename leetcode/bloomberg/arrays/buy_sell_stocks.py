@@ -54,3 +54,41 @@ class StockUtils(object):
             if prices[i+1] > prices[i]:
                 total += prices[i+1]-prices[i]
         return total
+
+    def calculate(self, prices, s):
+        if s >= len(prices):
+            return 0
+        max_ = 0
+        for start in range(len(prices)):
+            maxprofit = 0
+            for i in range(start+1, prices.length):
+                if prices[start] < prices[i]:
+                    profit = self.calculate(prices, i+1) + prices[i] - \
+                        prices[start]
+                    if profit > maxprofit:
+                        maxprofit = profit
+            if maxprofit > max_:
+                max_ = maxprofit
+
+        return max_
+
+    def maxProfit(self, prices):
+        i = 0
+        valley, peak = prices[0], prices[0]
+        maxprofit = 0
+        while i < prices.length-1:
+            while i < prices.length-1 and prices[i] >= prices[i+1]:
+                i+=1
+            valley = prices[i]
+            while i < prices.length-1 and prices[i] <= prices[i+1]:
+                i+=1
+            peak = prices[i]
+            maxprofit += peak - valley
+        return maxprofit
+
+    def maxProfit1(self, prices):
+        maxprofit = 0
+        for i in range(1, len(prices)):
+            if prices[i] > prices[i-1]:
+                maxprofit += prices[i] - prices[i-1]
+        return maxprofit

@@ -63,6 +63,44 @@ class ZeroUtils(object):
                 nums[insert_pos] = num
                 insert_pos += 1
 
+    def moveZeroes1(self, nums):
+        n = len(nums)
+        num_zeroes = 0
+        for i in range(n):
+            if nums[i] == 0:
+                num_zeroes += 1
+        ans = []
+        for i in range(n):
+            if nums[i] != 0:
+                ans.append(nums[i])
+        while num_zeroes != 0:
+            ans.append(0)
+            num_zeroes-=1
+        for i in range(n):
+            nums[i] = ans[i]
+
+    def moveZeroes2(self, nums):
+        lastNonZeroFoundAt = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[lastNonZeroFoundAt] = nums[i]
+                lastNonZeroFoundAt += 1
+        for i in range(lastNonZeroFoundAt, len(nums)):
+            nums[i] = 0
+
+    def moveZeroes3(self, nums):
+        lastNonZeroFoundAt = 0
+        for cur in range(len(nums)):
+            if nums[cur] != 0:
+                self.swap(lastNonZeroFoundAt, cur, nums)
+                lastNonZeroFoundAt += 1
+
+    def swap(self,i,j,li):
+        temp = li[i]
+        li[i] = j
+        li[j] = temp
+
+
 if __name__ == '__main__':
     sol = ZeroUtils()
     arr = [0,0,0,3,12,0,0,1]
