@@ -65,7 +65,7 @@ class WaterUtils(object):
     --> the water area here is 0 because there isn't a "hole" for water
     to fill in 
     """
-    def trap(self, height):
+    def trap1(self, height):
         ans = 0
         size = len(height)
         for i in range(1, size-1):
@@ -77,6 +77,25 @@ class WaterUtils(object):
             ans += min(max_left, max_right) - height[i]
         return ans
 
+    def trap2(self, height):
+        if height is None:
+            return 0
+        ans = 0
+        size = len(height)
+        left_max = [None for i in range(size)]
+        right_max = [None for i in range(size)]
+        left_max[0] = height[0]
+        for i in range(1, size):
+            left_max[i] = max(height[i], left_max[i-1])
+        right_max[size-1] = height[size-1]
+        for i in range(size-1, -1, -1):
+            right_max[i] = max(height[i], right_max[i+1])
+        for i in range(1, size-1):
+            ans += min(left_max[i], right_max[i])-height[i]
+        return ans
+
+    def trap3(self, height):
+        
 
 if __name__ == '__main__':
     sol = WaterUtils()
