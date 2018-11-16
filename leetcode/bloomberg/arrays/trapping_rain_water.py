@@ -95,8 +95,20 @@ class WaterUtils(object):
         return ans
 
     def trap3(self, height):
-        
-
+        ans, current = 0
+        st = []
+        while current < len(height):
+            while len(st) != 0 and height[current] > height[st[len(st)-1]]:
+                top = st.pop(len(st)-1)
+                if len(st) == 0:
+                    break
+                distance = current - st[len(st)-1] - 1
+                bounded_height = min(height[current], height[st[len(st)-1]])-height[top]
+                ans += distance * bounded_height
+            st.append(current)
+            current+=1
+        return ans
+    
 if __name__ == '__main__':
     sol = WaterUtils()
     elevations = [4,2,3]
