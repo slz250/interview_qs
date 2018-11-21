@@ -1,4 +1,5 @@
 from data_structures.trees.tree_utils import *
+import sys
 
 class BSTUtils(object):
     def isValidBST(self, root):
@@ -19,6 +20,43 @@ class BSTUtils(object):
             prev_roots = []
             return helper(root, prev_roots)
 
+    def isValidBST1(self, root):
+        if root is None:
+            return True
+        if not self.isValidBST(root.left) or not self.isValidBST(root.right):
+            return False
+        if root.left and root.left.val < root.val and root.right and root.right.val > root.val:
+            return True
+        elif not root.left and root.right.val > root.val:
+            return True
+        elif not root.right and root.left.val < root.val:
+            return True
+        else:
+            return False
+
+
+    """
+    check against prev roots concept
+    if parent is left child then check if current node is right then check if current node 
+    is smaller than prev roots
+    if parent is right child then check if current node is left and check if current node
+    is bigger than prev roots
+    """
+
+
+    def isValidBST2(self, root):
+        def helper(root, min_val, max_val):
+            if root is None:
+                return True
+            if root.val >= max_val or root.val <= min_val:
+                return False
+            return helper(root.left, min_val, root.val) and \
+                helper(root.right, root.val, max_val)
+
+        """
+        using MIN and MAX to kickstart is smart
+        """
+        return helper(root, sys.float_info.min, sys.float_info.max)
 
 if __name__ == '__main__':
     node5 = TreeNode(5)
