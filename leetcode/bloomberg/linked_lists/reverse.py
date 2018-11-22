@@ -23,6 +23,15 @@ class LLUtils(object):
 
         return prev
 
+    def reverseRecur(self, head):
+        if head is None:
+            final_head = Node(None)
+            return final_head, final_head
+        res = self.reverseRecur(head.next)
+        res[0].next = head
+        return head, res[1]
+
+
 if __name__ == '__main__':
     node1 = Node(1)
     node2 = Node(2)
@@ -35,8 +44,10 @@ if __name__ == '__main__':
     node3.next = node4
     node4.next = node5
 
-    node1.print()
+    # node1.print()
 
     sol = LLUtils()
-    res = sol.reverseIter(node1)
-    res.print()
+    # res = sol.reverseIter(node1)
+    # res.print()
+    res = sol.reverseRecur(node1)
+    res[1].print()
