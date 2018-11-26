@@ -11,6 +11,15 @@ class Node(object):
         print('\n')
 
 class LLUtils(object):
+    """
+    intuition here is
+    1 -> 2 -> 3 -> 4 -> None
+    4 -> 3 -> 2 -> 1 -> None
+
+    by setting curr's next to prev we reverse it in O(n)
+    even if we don't have direct access to prev, we can force access by iterating
+    thru the list and storing prev in a var
+    """
     def reverseIter(self, head):
         curr = head
         prev = None
@@ -35,7 +44,6 @@ class LLUtils(object):
         dummy_head[0].next = None
         res = dummy_head[1].next
         return res
-
 
 if __name__ == '__main__':
     node1 = Node(1)
