@@ -15,4 +15,3 @@ class PathsUitls(object):
         if not mat:
             return None
 
-        for r in range()
