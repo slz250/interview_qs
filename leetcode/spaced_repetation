@@ -3,3 +3,17 @@
 instead of getting fixated on one particular algo, let ur mind expand
 and see what else u can do that is different than what u r currently thinking
 --> diffuse mode
+
+============================================================
+takeaways:
+how can you visualize the problem when it comes to data points?
+sometimes use a line graph (x and y axis)
+(**see Arrays: Buy and Sell Stock)
+
+============================================================
+data structures:
+-sets and hashmaps are good to verify the existence of some data
+hashmaps are good for counts
+
+
+

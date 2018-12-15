@@ -15,6 +15,7 @@ class ArrayUtils(object):
         if not s:
             return -1
         char_count = dict()
+        #alternatively: count = collections.Counter(s)
         for c in s:
             if c not in char_count:
                 char_count[c] = 1
