@@ -144,9 +144,65 @@ class StockUtils(object):
                 profit += (prices[i+1] - prices[i])
         return profit
 
+    """
+    bf
+    buy on day i
+    sell on day j = i+1..n
+    repeat until last sell date is j = n
+    recur(buy_date, profit):
+        #automatically stays in range due to for loop constraint
+        for sell in j = i+1..n:
+            profit += (prices[sell]-prices[buy_date])
+            max_profit = profit if profit > max_profit else max_profit
+            for buy in k = j+1..n:
+                recur(k, profit)
+                
+    beginning calls:
+    for i in range(len(prices)):
+        recur(i, 0)
+    """
+    def maxProfit4(self, prices):
+        def helper(buy, profit):
+            nonlocal max_profit, n
+            for sell in range(buy+1, n):
+                # print(sell)
+                profit += (prices[sell]-prices[buy])
+                max_profit = profit if profit > max_profit else max_profit
+                for new_buy in range(sell+1, n):
+                    # print(new_buy)
+                    helper(new_buy, profit)
+
+        n = len(prices)
+        max_profit = 0
+        for i in range(len(prices)):
+            helper(i, 0)
+        return max_profit
+
+    def maxProfit5(self, prices):
+        def calculate(prices, s):
+            if s >= len(prices):
+                return 0
+
+            max_ = 0
+            for start in range(s, len(prices)):
+                maxprofit = 0
+                for i in range(start+1, len(prices)):
+                    if prices[start] < prices[i]:
+                        profit = calculate(prices, i+1) + prices[i]-prices[start]
+                        if profit > maxprofit:
+                            maxprofit = profit
+                if maxprofit > max_:
+                    max_ = maxprofit
+
+            return max_
+
+        return calculate(prices, 0)
 
 if __name__ == '__main__':
     sol = StockUtils()
-    prices = [1, 2, 3, 4, 5]
-    res = sol.maxProfit2(prices)
+    prices = [7,1,5,3,6,4]
+    prices1 = [1, 2, 3, 4, 5]
+    res = sol.maxProfit4(prices)
+    print(res)
+    res = sol.maxProfit4(prices1)
     print(res)
