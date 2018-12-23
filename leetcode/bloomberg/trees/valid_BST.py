@@ -58,6 +58,61 @@ class BSTUtils(object):
         """
         return helper(root, sys.float_info.min, sys.float_info.max)
 
+"""
+range -- min, max
+pass the parent and use whichever one is smaller/bigger depending on left/right side
+"""
+def validBST(root):
+    pass
+
+def inorderTraversal(root):
+    li = list()
+    if not root: return li
+    stack = list()
+    while root and len(stack) != 0:
+        while root:
+            stack.append(root)
+            root = root.left
+        root = stack.pop()
+        li.append(root.val)
+        root = root.right
+    return li
+
+def kthSmallest(root, k):
+    if not root: return None
+    stack = list() #contains eles to visit
+    while root and len(stack) != 0:
+        #visiting left
+        while root:
+            stack.append(root)
+            root = root.left
+        #visiting root
+        root = stack.pop()
+        k -= 1
+        if k == 0: break
+        #visiting right
+        root = root.right
+    return root.val
+
+def validBST(root):
+    #get inorder traversal and see if consistently increasing?
+    #has to be bigger than last one
+    if not root: return False
+    stack = list()
+    pre = None
+    while root and len(stack) != 0:
+        while root:
+            stack.append(root)
+            root = root.left
+            #b/c we're using stack, we're visiting the MRU
+            #which would be the leftmost to rightmost node
+        root = stack.pop()
+        if not pre and root.val <= pre.val:
+            return False
+        pre = root
+        root = root.right
+    return True
+
 if __name__ == '__main__':
     node5 = TreeNode(5)
     node1 = TreeNode(1)
