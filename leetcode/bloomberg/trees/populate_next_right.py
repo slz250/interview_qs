@@ -53,3 +53,20 @@ def levelOrderTraversal(root):
         print(curr, end=' ')
         if curr.left: queue.append(curr.left)
         if curr.right: queue.append(curr.right)
+
+def connect1(root):
+    if not root: return
+    pre = root
+    # cur = None
+    while pre.left:
+        cur = pre
+        while cur:
+            #setting left's next
+            cur.left.next = cur.right
+            #setting right's left ptr; main point here is
+            #cur.next has previously been set so this works
+            if cur.next: cur.right.next = cur.next.left
+            #continuing for that level
+            cur = cur.next
+        #next level
+        pre = pre.left
