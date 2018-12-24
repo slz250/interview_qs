@@ -62,8 +62,61 @@ class BSTUtils(object):
 range -- min, max
 pass the parent and use whichever one is smaller/bigger depending on left/right side
 """
-def validBST(root):
-    pass
+def validBST1(root):
+    if not root:
+        return True
+
+    def isBSTHelper(node, lower_limit, upper_limit):
+        if lower_limit is not None and node.val <= lower_limit:
+            return False
+        if upper_limit is not None and upper_limit <= node.val:
+            return False
+        #keeps the relevant upper and lower limit b/c whenever you're going
+        #into a call or backing out of a call you're using the correct
+        #limit at that call
+        left = isBSTHelper(node.left, lower_limit, node.val) if node.left else True
+        if left:
+            right = isBSTHelper(node.right, node.val, upper_limit) if node.right else True
+            return right
+        else:
+            return False
+
+    return isBSTHelper(root, None, None)
+
+"""
+the trouble when i was trying to implement the lower, upper bound
+algo was that i wasn't sure how to have the checking of each node have the correct upper/lower
+bound for that particular "state"
+
+by using recursion, we are definitely able to isolate the correct
+lower/upper bound b/c that particular state keeps track of the 
+current relevant lower/upper bound
+
+the same concept is portrayed in the below algo of using iteration
+to maintain the recursive approach, by keeping the relevant
+upper/lower bound as a tuple, we have the correct one @ each 
+check
+"""
+def isValidBST(root):
+    if not root: return True
+    stack = [(root, None, None), ]
+    while stack:
+        root, lower_limit, upper_limit = stack.pop()
+        if root.right:
+            if root.right.val > root.val:
+                if upper_limit and root.right.val >= upper_limit:
+                    return False
+                stack.append((root.right, root.val, upper_limit))
+            else:
+                return False
+        if root.left:
+            if root.left.val < root.val:
+                if lower_limit and root.left.val <= lower_limit:
+                    return False
+                stack.append((root.left, lower_limit, root.val))
+            else:
+                return False
+    return True
 
 def inorderTraversal(root):
     li = list()
