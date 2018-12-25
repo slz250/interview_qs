@@ -1,0 +1,5 @@
+HEAP
+-heapify is logn b/c when we heapify a particular node
+at each level check, we ignore half the elements in the heap
+so logn time
+-when removing min/max, swap root w/ rightmost bottom child
