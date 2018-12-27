@@ -18,6 +18,10 @@ def frequencySort(s):
         else:
             counts[c] += 1
 
+    #you don't need to explicitly find the max/min
+    #b/c either all chars are unique w/ bucket arr of size
+    #len(s) or best case all chars are the same duplicate so
+    #bucket arr of size 1
     min_ = max_ = None
     for ele in counts:
         if not min_ and not max_:
