@@ -43,6 +43,16 @@ def numTrees(n):
     res = helper(1, n, False)
     return res
 
+"""
+given a range, we use every val in the range as the root (i)
+and then recursively create the left subtree as 1..i-1
+and the right subtree as i+1..n
+our break condition could be when we hit a point at which the start and end 
+of the range is equal to each other then we return 1
+
+it is ensured that all possible unique BSTs wud be generated b/c
+for each call's root or each node, we are using a unique val
+"""
 def numTrees1(n):
     G = [0] * (n+1)
     G[0], G[1] = 1, 1
@@ -73,7 +83,7 @@ def genTrees(start, end):
         return li
     if start == end:
         li.append(TreeNode(start))
-    
+
     for i in range(start, end+1):
         left = genTrees(start, i-1)
         right = genTrees(i+1, end)
