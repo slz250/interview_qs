@@ -100,6 +100,16 @@ class ZeroUtils(object):
         li[i] = j
         li[j] = temp
 
+def moveZeros(nums):
+    #go thru nums if 0 don't swap
+    #init insert_idx to 0
+    #if non-zero swap w/ insert_idx then
+    #update insert_idx
+    #from insert_idx to end change to 0
+    #
+    #if zero don't swap b/c it needs to be replaced
+    #if non-zero swap b/c it'll go into where a 0 is
+    pass
 
 if __name__ == '__main__':
     sol = ZeroUtils()
