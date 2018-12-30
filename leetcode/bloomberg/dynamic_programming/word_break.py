@@ -1,3 +1,4 @@
+import time, queue
 """
 recognize that the problem requires to try out all different combinations
 therefore we should probably use DP
@@ -64,5 +65,68 @@ applepenapple
 
 ['apple','pe','pen']
 """
-def workBreak(s, wordDict):
-    pass
+def wordBreak(s, wordDict):
+    def helper(s_):
+        if s_ in dp_mem: return False
+        for i in range(1, len(s_)+1):
+            if s_[0:i] in wordDict:
+                # print(f'i: {i} len(s)+1: {len(s_)+1} matched: {s_[0:i]}')
+                if i == len(s_) or helper(s_[i:]):
+                    # print(f'returning True for wordBreak({s_},..)')
+                    return True
+        # print(f'returning False for wordBreak({s_},..)')
+        dp_mem.add(s_)
+        return False
+
+    dp_mem = set()
+    start = time.time()
+    res = helper(s)
+    end = time.time()
+    print('runtime: ', end-start)
+    return res
+
+def wordBreak1(s, wordDict):
+    def word_Break(s, wordDict, start):
+        if start == len(s):
+            return True
+        for end in range(start+1, len(s)+1):
+            if s[start:end] in wordDict and word_Break(s, wordDict, end):
+                return True
+        return False
+    return word_Break(s, set(wordDict), 0)
+
+def wordBreak2(s, wordDict):
+    wordDictSet = set(wordDict)
+    q = queue.Queue()
+    visited = [0 for i in range(len(s))]
+    q.put(0)
+    while not q.empty():
+        start = q.get()
+        if visited[start] == 0:
+            for end in range(start+1, len(s)+1):
+                if s[start:end] in wordDictSet:
+                    q.put(end)
+                if end == len(s):
+                    return True
+            visited[start] = 1
+    return False
+
+def wordBreak3(s, wordDict):
+    wordDictSet = set(wordDict)
+    dp = [False for i in range(len(s)+1)]
+    dp[0] = True
+    for i in range(1, len(s)+1):
+        for j in range(i):
+            if dp[j] and s[j:i] in wordDictSet:
+                dp[i] = True
+                break
+    return dp[len(s)]
+
+
+if __name__ == '__main__':
+    # s = 'catsandog'
+    # wordDict = ['cats', 'dog', 'sand', 'and', 'cat']
+    s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"
+    wordDict = ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]
+    res = wordBreak(s, wordDict)
+    print(res)
