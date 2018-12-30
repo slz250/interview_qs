@@ -115,7 +115,10 @@ def wordBreak3(s, wordDict):
     wordDictSet = set(wordDict)
     dp = [False for i in range(len(s)+1)]
     dp[0] = True
+    
+    #substrs from 0 to i --> let's call it s1
     for i in range(1, len(s)+1):
+        #substrs of s1
         for j in range(i):
             if dp[j] and s[j:i] in wordDictSet:
                 dp[i] = True
