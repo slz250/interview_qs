@@ -109,7 +109,13 @@ def moveZeros(nums):
     #
     #if zero don't swap b/c it needs to be replaced
     #if non-zero swap b/c it'll go into where a 0 is
-    pass
+    last_non_zero = 0
+    for i in range(len(nums)):
+        if nums[i] != 0:
+            nums[last_non_zero] = nums[i]
+            last_non_zero += 1
+    for i in range(last_non_zero, len(nums)):
+        nums[i] = 0
 
 if __name__ == '__main__':
     sol = ZeroUtils()
