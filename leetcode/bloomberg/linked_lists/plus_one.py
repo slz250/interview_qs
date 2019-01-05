@@ -34,6 +34,22 @@ def plusOne(head):
         final_res = res[0]
     return final_res
 
+def plusOne(head):
+    if DFS(head) == 0:
+        return head
+    else:
+        newHead = Node(1)
+        newHead.next = head
+        return newHead
+
+def DFS(head):
+    if not head: return 1
+    carry = DFS(head.next)
+    if carry == 0: return 0
+    val = head.val + 1
+    head.val = val%10
+    return val/10
+
 if __name__ == '__main__':
     node1 = Node(1)
     node2 = Node(9)
