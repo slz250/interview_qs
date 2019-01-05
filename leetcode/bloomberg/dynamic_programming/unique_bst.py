@@ -95,6 +95,20 @@ def genTrees(start, end):
                 li.append(root)
     return li
 
+def numTrees2(n):
+    def helper(n):
+        if dp_mem[n]: return dp_mem[n]
+        if n <= 1:
+            return 1
+        sum_ = 0
+        for i in range(n+1):
+            sum_ += helper(i-1) * helper(n-i)
+        dp_mem[n] = sum_
+        return sum_
+
+    dp_mem = [0 for i in range(n+1)]
+    return helper(n)
+        
 if __name__ == '__main__':
     res = numTrees(3)
     print(res)
