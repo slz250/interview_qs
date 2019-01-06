@@ -198,6 +198,47 @@ def connect4(root):
             curr = curr.next
         level_start = level_start.left
 
+class Solution(object):
+    def connect(self, root):
+        if not root: return
+        level_start = root
+        while level_start.left or level_start.right:
+            curr = level_start
+            prev = None
+            while curr:
+                if level_start.left and level_start.right:
+                    if prev: prev.next = level_start.left
+                    level_start.left.next = level_start.right
+                elif level_start.left:
+                    if prev: prev.next = level_start.left
+                    prev = level_start.left
+                elif level_start.right:
+                    if prev: prev.next = level_start.right
+                    prev = level_start.right
+                curr = curr.next
+            level_start = level_start.left if level_start.left else level_start.right
+
+    def connect1(self, root):
+        head, prev, curr = None, None, root
+        while curr:
+            while curr:
+                if curr.left:
+                    if prev:
+                        prev.next = curr.left
+                    else:
+                        head = curr.left
+                prev = curr.left
+                if curr.right:
+                    if prev:
+                        prev.next = curr.right
+                    else:
+                        head = curr.right
+                prev = curr.right
+                curr = curr.next
+            curr = head
+            head = None
+            prev = None
+            
 if __name__ == '__main__':
     node3 = TreeNode(3)
     node9 = TreeNode(9)
