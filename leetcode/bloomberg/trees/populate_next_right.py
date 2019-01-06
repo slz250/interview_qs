@@ -1,3 +1,5 @@
+from leetcode.bloomberg.trees.trees_utils import *
+
 def connect(root):
     if not root: return
     queue = list()
@@ -94,3 +96,118 @@ def connectII1(root):
         cur = head
         head = None
         prev = None
+
+def connect2(root):
+    """
+    use level order traversal (recursive approach)
+    and store prev node when going thru a level and set
+    prev.next to curr
+    then for last one on that level do prev.next = None
+    :param root:
+    :return:
+    """
+    if not root: return
+    h = getHeight(root)
+    for i in range(h+1):
+        setNextRight(root, i)
+
+def setNextRight(root, level):
+    def helper(root, curr_level):
+        if not root: return
+        if curr_level == level:
+            nonlocal prev
+            if prev:
+                prev.next = root
+                prev = root
+                return
+        helper(root.left, curr_level+1)
+        helper(root.left, curr_level+1)
+    prev = None
+    helper(root, 0)
+    prev.next = None
+
+def levelOrder(root):
+    """
+    get height
+    dfs and only print if @ needed height
+    for each height:
+        dfs and only print nodes at certain height
+    :param root:
+    :return:
+    """
+    res = list()
+    if not root: return res
+    height = getHeight(root)
+    for i in range(height+1):
+        temp = printLevel(root, i)
+        res.append(temp)
+    return res
+
+def getHeight(root):
+    def helper(root, curr_height):
+        if not root: return curr_height-1
+        l = helper(root.left, curr_height+1)
+        r = helper(root.right, curr_height+1)
+        return l if l > r else r
+    return helper(root, 0)
+
+def printLevel(root, level):
+    """
+
+    :param root:
+    :param level:
+    :return:
+    """
+    def helper(root, curr_level):
+        if not root: return
+        if curr_level == level:
+            res.append(root.val)
+            return #no need to go deeper
+        helper(root.left, curr_level+1)
+        helper(root.right, curr_level+1)
+
+    res = list()
+    helper(root, 0)
+    return res
+
+def connect3(root):
+    if not root: return
+    curr = root
+    level_start = None
+    #if there's a level to process
+    while curr and curr.left:
+        #?
+        level_start = curr.left
+        #linking level
+        while curr and curr.left:
+            curr.left = curr.right
+            if curr.next:
+                curr.right.next = curr.next.left
+            curr = curr.next
+        curr = level_start
+
+def connect4(root):
+    if not root: return
+    level_start = root
+    while level_start.left:
+        curr = level_start
+        while curr:
+            curr.left.next = curr.right
+            if curr.next:
+                curr.right.next = curr.next.left
+            curr = curr.next
+        level_start = level_start.left
+
+if __name__ == '__main__':
+    node3 = TreeNode(3)
+    node9 = TreeNode(9)
+    node20 = TreeNode(20)
+    node15 = TreeNode(15)
+    node7 = TreeNode(7)
+    node3.left = node9
+    node3.right = node20
+    node20.left = node15
+    node20.right = node7
+
+    res = getHeight(node3)
+    print(res)
