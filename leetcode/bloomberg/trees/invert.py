@@ -11,3 +11,15 @@ class TreeNode(object):
         self.left = left
         self.right = right
 
+def invertTree(root):
+    """
+    swap left and right child
+    recur on left and right child
+    """
+    if not root:
+        return None
+    temp = root.left
+    root.left = invertTree(root.right)
+    root.right = invertTree(temp)
+    return root
+
