@@ -204,6 +204,29 @@ def inorderTraversal1(root):
         root = root.right
     return res
 
+def isValidBST2(root):
+    """
+    using recursion:
+    at each recursive call, we're guaranteed to have the correct
+    min and max bound
+    :param root:
+    :return:
+    """
+    def helper(root, min_, max_):
+        if not root:
+            return True
+        if min_ < root.val < max_:
+            #here we are passing the prev min_ or max_
+            #b/c when we go down left or right path,
+            #we only update one bound so we need the prior bound
+            l = helper(root.left, min_, root.val)
+            r = helper(root.right, root.val, max_)
+        else:
+            return False
+        return l and r
+    res = helper(root, -sys.maxsize, sys.maxsize)
+    return res
+
 if __name__ == '__main__':
     node5 = TreeNode(5)
     node1 = TreeNode(1)
