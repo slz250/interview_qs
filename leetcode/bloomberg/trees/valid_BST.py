@@ -1,4 +1,4 @@
-from data_structures.trees.tree_utils import *
+from leetcode.bloomberg.trees.trees_utils import *
 import sys
 
 class BSTUtils(object):
@@ -166,6 +166,44 @@ def validBST(root):
         root = root.right
     return True
 
+def isValidBST1(root):
+    """
+    use inorder traversal to see if tree is in proper sorted order
+    :param root:
+    :return:
+    """
+    prev = None
+    stack = list()
+    """
+    the key here is to focus only on the root and not
+    root.left or root.right --> makes the code much cleaner
+    """
+    while root or stack:
+        #process root and then go left
+        while root:
+            stack.append(root)
+            root = root.left
+        root = stack.pop(len(stack)-1)
+        if prev.val and root.val <= prev.val:
+            return False
+        prev = root
+        #process right
+        root = root.right
+    return True
+
+def inorderTraversal1(root):
+    res = list()
+    if not root: return res
+    stack = list()
+    while root or stack:
+        while root:
+            stack.append(root)
+            root = root.left
+        root = stack.pop(len(stack)-1)
+        res.append(root)
+        root = root.right
+    return res
+
 if __name__ == '__main__':
     node5 = TreeNode(5)
     node1 = TreeNode(1)
@@ -176,3 +214,5 @@ if __name__ == '__main__':
     node5.right = node4
     node4.left = node3
     node4.right = node6
+    res = inorderTraversal1(node5)
+    print(res)
