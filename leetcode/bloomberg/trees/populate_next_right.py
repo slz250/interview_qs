@@ -238,7 +238,7 @@ class Solution(object):
             curr = head
             head = None
             prev = None
-            
+
 if __name__ == '__main__':
     node3 = TreeNode(3)
     node9 = TreeNode(9)
