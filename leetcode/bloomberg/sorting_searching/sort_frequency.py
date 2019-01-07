@@ -50,6 +50,30 @@ def frequencySort(s):
                 # print(s)
     return s
 
+class Solution(object):
+    def frequencySort(self, s):
+        """
+        get counts
+        pq --> nlogn
+        comparator sort --> nlogn
+
+        bucket sort:
+        make arr of len s
+        idx represents frequency
+        ele is list of chars w/ that frequency
+        go from back of arr to front and create output
+
+        tree
+        t -> 1
+        r -> 1
+        e -> 2
+        [[],[t,r],[e],[],[]]
+        eetr
+
+        :param s:
+        :return:
+        """
+
 if __name__  == '__main__':
     input_ = 'Aabb'
     output = frequencySort(input_)
