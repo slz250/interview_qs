@@ -90,3 +90,14 @@ class SearchUtils(object):
             else:
                 break
         return nums[k]
+
+    def findKthLargest(self, nums, k):
+        """
+        use min heap
+        only insert if curr is bigger than heap.peek()
+        in the end do heap.pop() for kth largest
+        nlogk
+        :param nums:
+        :param k:
+        :return:
+        """
