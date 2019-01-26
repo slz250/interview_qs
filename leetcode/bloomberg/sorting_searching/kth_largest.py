@@ -91,7 +91,7 @@ class SearchUtils(object):
                 break
         return nums[k]
 
-    def findKthLargest(self, nums, k):
+    def findKthLargest1(self, nums, k):
         """
         use min heap
         only insert if curr is bigger than heap.peek()

@@ -28,3 +28,24 @@ def maxSlidingWindow(a, k):
             r[ri] = a[deque[len(deque)-1]]
             ri += 1
     return r
+
+class Solution(object):
+    def maxSlidingWindow(self, nums, k):
+        """
+        queue approach (deque)
+        if oldest ele is out of range:
+            then remove it
+        if curr > deque.head():
+            remove all eles from deque
+        if curr < max_:
+            possibility in future
+            while newer eles are smaller than curr:
+                pop them!
+        insert curr
+        store indices
+
+        1 3 [-3,-2] 5 3 6 7
+        :param nums:
+        :param k:
+        :return:
+        """
