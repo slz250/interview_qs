@@ -1,4 +1,4 @@
-from leetcode.trees.graph import Graph
+from leetcode.trees_graphs.graph import Graph
 
 class Solution(object):
     """
