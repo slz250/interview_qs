@@ -1,5 +1,7 @@
-from leetcode.bloomberg.trees.trees_utils import *
 import sys
+
+from leetcode.trees_graphs.trees_utils import *
+
 
 class BSTUtils(object):
     def isValidBST(self, root):

@@ -1,5 +1,6 @@
 from collections import deque
-from leetcode.bloomberg.trees.trees_utils import *
+
+from leetcode.trees_graphs.trees_utils import *
 
 
 def buildTree(preorder, inorder):

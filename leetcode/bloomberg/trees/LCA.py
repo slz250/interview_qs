@@ -1,4 +1,4 @@
-from leetcode.bloomberg.trees.trees_utils import *
+from leetcode.trees_graphs.trees_utils import *
 
 class TreeUtils(object):
     def lowestCommonAncestor(self, root, p, q):

@@ -1,4 +1,4 @@
-from leetcode.bloomberg.trees.trees_utils import *
+from leetcode.trees_graphs.trees_utils import *
 
 def connect(root):
     if not root: return
