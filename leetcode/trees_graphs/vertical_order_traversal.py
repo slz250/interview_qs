@@ -17,15 +17,18 @@ class Solution(object):
 
     def getVerticalOrders(self, root, min_, max_):
         def indexOffset(level):
-            return level+max_
+            return level+abs(min_)
 
         def helper(root):
             if not root: return
+            # print(f'root addr: {root}')
+            # print(f'root.val: {root.val}; root.level: {root.level}; list index: {indexOffset(root.level)}')
             res[indexOffset(root.level)].append(root.val)
             helper(root.left)
             helper(root.right)
 
-        res = [[] for i in range(max_-min_+1)]
+        # print(f'max: {max_} min: {min_}')
+        res = [[] for i in range(abs(max_)+abs(min_)+1)]
         helper(root)
         return res
 
@@ -41,21 +44,58 @@ class Solution(object):
         print('\n')
 
     def test(self):
-        node1 = TreeNode(1)
-        node2 = TreeNode(2)
         node3 = TreeNode(3)
-        node4 = TreeNode(4)
-        node5 = TreeNode(5)
-        node6 = TreeNode(6)
+        node9 = TreeNode(9)
+        node20 = TreeNode(20)
+        node15 = TreeNode(15)
         node7 = TreeNode(7)
-        node1.left = node2
-        node1.right = node3
-        node2.left = node4
-        node2.right = node5
-        node3.left = node6
-        node3.right = node7
-        res = self.verticalOrder(node1)
+        # node6 = TreeNode(6)
+        # node7 = TreeNode(7)
+        node3.left = node9
+        node3.right = node20
+        node20.left = node15
+        node20.right = node7
+        # node3.left = node6
+        # node3.right = node7
+        res = self.verticalOrder(node3)
         self.printRes(res)
+
+    def verticalOrderSol(self, root):
+        res = list()
+        if not root: return res
+
+        map = dict()
+        q = list()
+        cols = list()
+
+        q.append(root)
+        cols.append(0)
+
+        min_, max_ = 0, 0
+
+        while q:
+            node = q.pop(0)
+            col = cols.pop(0)
+            if col not in map:
+                map[col] = list()
+            map[col].append(node.val)
+
+            if node.left:
+                q.append(node.left)
+                cols.append(col-1)
+                min_ = min(min_, col-1)
+
+            if node.right:
+                q.append(node.right)
+                cols.append(col+1)
+                max_ = max(max_, col+1)
+
+        for i in range(min_, max_+1):
+            res.append(map[i])
+
+        return res
+
+
 
 if __name__ == '__main__':
     sol = Solution()
