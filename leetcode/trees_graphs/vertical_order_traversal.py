@@ -95,8 +95,6 @@ class Solution(object):
 
         return res
 
-
-
 if __name__ == '__main__':
     sol = Solution()
     sol.test()
