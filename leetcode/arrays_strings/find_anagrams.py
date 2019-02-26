@@ -1,3 +1,5 @@
+import sys
+
 class Solution(object):
     """
     bf
@@ -73,6 +75,37 @@ class Solution(object):
         p = 'abc'
         res = self.findAnagrams(s, p)
         print(res)
+
+    def slidingWindowTemplate(self, s, t):
+        res = list()
+        if len(t) > len(s): return res
+
+        map = dict()
+        for c in t:
+            if c not in map: map[c] = 1
+            else: map[c]+=1
+
+        counter = len(map)
+
+        begin, end = 0, 0
+
+        length = sys.maxsize
+        while end < len(s):
+            c = s[end]
+            if c in map:
+                map[c]-=1 #or +=1
+            if map[c] == 0: counter-=1
+            end +=1
+
+            while counter == 0:
+                tempc = s[begin]
+                if tempc in map:
+                    map[tempc]+=1 #or -=1
+                    if map[tempc] > 0: counter+=1
+
+                begin+=1
+
+        return res
 
 
 if __name__ == '__main__':
