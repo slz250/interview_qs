@@ -35,7 +35,7 @@ class Solution(object):
 
         return max(longest_streak, current_streak)
 
-    def longestConsecutive(self, nums):
+    def longestConsecutive2(self, nums):
         longest_streak = 0
         num_set = set(nums)
 
@@ -53,8 +53,6 @@ class Solution(object):
                 longest_streak = max(longest_streak, current_streak)
 
         return longest_streak
-
-                while
 
 
 
